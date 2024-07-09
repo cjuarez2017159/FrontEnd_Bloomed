@@ -1,12 +1,40 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
-import './Home.css'; 
+import './Home.css';
 
 export const Home = () => {
     return (
-        <div className="container">
-            <h1 className="title">
-                Bienvenido a bloomed
-            </h1>
+        <div>
+            <header>
+                <nav className="navbar navbar-expand-lg bg-dark navbar-light bg-light">
+                    <div className="container-fluid">
+                        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span className="navbar-toggler-icon"></span>
+                        </button>
+                        <div className="collapse navbar-collapse" id="navbarNav">
+                            <ul className="navbar-nav">
+                                <li className="nav-item">
+                                    <button className="btn btn-primary me-2">Cuentas</button>
+                                </li>
+                                <li className="nav-item">
+                                    <button className="btn btn-primary me-2">Creditos</button>
+                                </li>
+                                <li className="nav-item">
+                                    <button className="btn btn-primary me-2">Beneficios</button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="ms-auto">
+                            <button className="btn btn-primary">Login</button>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+            <div className="background-image">
+                <h1 className="title">
+                    Bienvenido a bloomed
+                </h1>
+            </div>
             <p className="paragraph">
                 ¡Hola! Te damos la bienvenida a nuestro blog de bloomed
             </p>
