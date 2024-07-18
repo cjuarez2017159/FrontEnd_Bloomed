@@ -1,2 +1,2 @@
 export { Home } from './Home'
-export { Navbar } from './NavbarHome'
+export { Navbar } from './Navbar'
