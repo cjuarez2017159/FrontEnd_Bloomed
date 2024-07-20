@@ -1,41 +1,29 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import './Navbar.css'; // Importar el archivo CSS
 
 export const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleClick = () => {
-    setIsOpen(!isOpen);
-  };
-
   return (
-    <nav className="border-b-4 border-blue-900 fixed top-0 bg-blue-800 font-bold w-full text-lg text-white">
-      <button
-        onClick={handleClick}
-        className="p-2 block lg:hidden focus:outline-none bg-transparent border-none"
-      >
-        ☰
-      </button>
-      <ul className={`lg:flex ${isOpen ? "block" : "hidden"}`}>
-        <li className="inline-block py-4">
-          <Link to="/" onClick={handleClick} className="pl-6 pr-8">
-            Inicio
-          </Link>
+    <nav className="navbar">
+      <ul>
+        <li>
+          <button className="nav-button" onClick={() => window.location.href = '/'}>
+            foro
+          </button>
         </li>
-        <li className="inline-block py-4">
-          <Link to="/posts" onClick={handleClick} className="pl-6 pr-8">
-            Artículos
-          </Link>
+        <li>
+          <button className="nav-button" onClick={() => window.location.href = '/posts'}>
+            videos
+          </button>
         </li>
-        <li className="inline-block py-4">
-          <Link to="/about" onClick={handleClick} className="pl-6 pr-8">
-            Acerca de nosotros
-          </Link>
+        <li>
+          <button className="nav-button" onClick={() => window.location.href = '/about'}>
+            publicaciones
+          </button>
         </li>
-        <li className="inline-block py-4">
-          <Link to="/pegro" onClick={handleClick} className="pl-6 pr-8">
-            Pegro
-          </Link>
+        <li className="login-register">
+          <button className="nav-button" onClick={() => window.location.href = '/about'}>
+            login/register
+          </button>
         </li>
       </ul>
     </nav>

@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css?family=Raleway:300,400,900');
 
 body {
@@ -65,10 +64,43 @@ p img {
 }
 
 .footer {
-  text-align: center;
-  padding: 20px 0;
-  background-color: #868686;
-  color: #000000;
-  font-size: 14px;
+    text-align: center;
+    padding: 20px 0;
+    background-color: #393E46;
+    color: #FEFFFF;
+    font-size: 14px;
 }
 
+/* Styles for cards */
+.cards {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Adjust the spacing between cards */
+    margin: 20px 0;
+}
+
+.card {
+    background-color: #FFFFFF;
+    border: 1px solid #393E46;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: calc(33.333% - 20px); /* Adjust card width with gap in mind */
+    padding: 20px;
+    text-align: center;
+}
+
+.card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.card h5 {
+    font-size: 22px; /* Slightly larger font size */
+    margin: 15px 0;
+}
+
+.card p {
+    font-size: 16px; /* Slightly larger font size */
+    color: #666666;
+}

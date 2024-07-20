@@ -1,7 +1,8 @@
-import { DashboardPage } from "./pages/DashboardPage.jsx";
+import React from 'react';
+import { DashboardPage } from './pages/DashboardPage';
 
 export const App = () => {
   return (
-    <DashboardPage/>
+    <DashboardPage />
   );
 };
