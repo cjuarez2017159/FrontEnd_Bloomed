@@ -1,0 +1,33 @@
+/* Estilos generales para el componente Publications */
+.publications-container {
+    padding-top: 70px; /* Ajusta el padding-top para el Navbar */
+    display: flex;
+    justify-content: center; /* Centra el contenido horizontalmente */
+  }
+  
+  .publications-content {
+    display: flex;
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    min-height: calc(100vh - 70px); /* Ajusta la altura mínima para el contenido */
+    width: 100%;
+  }
+  
+  .publication {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 15px 0;
+    background-color: #f9f9f9;
+    max-width: 800px; /* Ajusta el ancho máximo si es necesario */
+    width: 100%;
+  }
+  
+  .publication h2 {
+    margin-top: 0;
+  }
+  
+  .publication footer {
+    text-align: right;
+  }
+  
