@@ -6,7 +6,7 @@ export const Navbar = () => {
     <nav className="navbar">
       <ul>
         <li>
-          <button className="nav-button" onClick={() => window.location.href = '/'}>
+          <button className="nav-button" onClick={() => window.location.href = '/forum'}>
             foro
           </button>
         </li>
