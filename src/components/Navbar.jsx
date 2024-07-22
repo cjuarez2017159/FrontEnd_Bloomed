@@ -36,7 +36,7 @@ export const Navbar = () => {
           </button>
         </li>
         <li>
-          <button className="nav-button" onClick={() => window.location.href = '/posts'}>
+          <button className="nav-button" onClick={() => window.location.href = '/videos'}>
             Videos
           </button>
         </li>
