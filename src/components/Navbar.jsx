@@ -9,7 +9,11 @@ export const Navbar = () => {
     if (loggedUser) {
       try {
         const userObj = JSON.parse(loggedUser);
-        setUsername(userObj.username);
+        if (userObj && userObj.username) {
+          setUsername(userObj.username);
+        } else {
+          console.error('Username not found in user data');
+        }
       } catch (e) {
         console.error('Error parsing user data:', e);
       }
