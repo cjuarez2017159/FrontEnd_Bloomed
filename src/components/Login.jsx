@@ -104,30 +104,22 @@ export const Login = ({ switchAuthHandler }) => {
 
   const handleRegister = async (event) => {
     event.preventDefault();
-  
-    const day = formState.fechaNacimiento.value ? formState.fechaNacimiento.value.getDate().toString().padStart(2, '0') : '';
-    const month = formState.fechaNacimiento.value ? (formState.fechaNacimiento.value.getMonth() + 1).toString().padStart(2, '0') : '';
-    const year = formState.fechaNacimiento.value ? formState.fechaNacimiento.value.getFullYear() : '';
-    const formattedDate = `${day}/${month}/${year}`;
-  
-    console.log('Submitting registration form with the following data:');
-    console.log('Email:', formState.email.value);
-    console.log('Password:', formState.password.value);
-    console.log('Username:', formState.username.value);
-    console.log('Nombre:', formState.nombre.value);
-    console.log('Apellido:', formState.apellido.value);
-    console.log('Fecha de Nacimiento:', formattedDate);
-  
+
+    const fechaNacimiento = formState.fechaNacimiento.value;
+
+    if (!(fechaNacimiento instanceof Date) || isNaN(fechaNacimiento)) {
+      return toast.error('La fecha de nacimiento no es válida.');
+    }
+
     await register(
-      formState.email.value,
-      formState.password.value,
-      formState.username.value,
       formState.nombre.value,
       formState.apellido.value,
-      formattedDate  // Usa formattedDate aquí
+      formState.username.value,
+      formState.email.value,
+      formState.password.value,
+      fechaNacimiento  
     );
   };
-
 
   return (
     <div className="login-page">
