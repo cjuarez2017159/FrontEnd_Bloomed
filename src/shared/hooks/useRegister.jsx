@@ -4,12 +4,12 @@ import { register as registerRequest } from "../../service/api";
 import toast from "react-hot-toast";
 
 const formatDate = (date) => {
-    if (!date) return '';
     const day = date.getDate().toString().padStart(2, '0');
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear();
-    return `${year}-${month}-${day}`;
+    return `${day}/${month}/${year}`;
 };
+
 
 export const useRegister = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -18,10 +18,13 @@ export const useRegister = () => {
     const register = async (nombre, apellido, username, email, password, fechaNacimiento) => {
         setIsLoading(true);
 
-        console.log(formatDate)
+        if (!(fechaNacimiento instanceof Date) || isNaN(fechaNacimiento)) {
+            setIsLoading(false);
+            return toast.error('La fecha de nacimiento no es válida.');
+        }
 
-        // Formatea la fecha antes de enviarla
         const formattedDate = formatDate(fechaNacimiento);
+        console.log("Fecha de Nacimiento formateada:", formattedDate);
 
         const response = await registerRequest({
             nombre,
@@ -29,20 +32,24 @@ export const useRegister = () => {
             username,
             email,
             password,
-            fechaNacimiento: formattedDate // Usa la fecha formateada aquí
+            fechaNacimiento: formattedDate  
         });
 
         setIsLoading(false);
+
         if (response.error) {
+            console.log("Error en la respuesta:", response);
             return toast.error(
-                response.e?.response?.data || 'Ocurrió un error al registrar el usuario'
+                response.error.response?.data || 'Ocurrió un error al registrar el usuario'
             );
         }
 
         const { userDetails } = response.data;
+
         localStorage.setItem('user', JSON.stringify(userDetails));
         navigate('/');
     };
+
 
     return {
         register,
