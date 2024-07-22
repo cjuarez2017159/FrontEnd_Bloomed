@@ -47,3 +47,12 @@ export const register = async (data) => {
         };
     }
 };
+
+
+export const getVideo =  async () => {
+    try {
+        return await apiClient.get('/videos')
+    } catch (e) {
+        
+    }
+}
