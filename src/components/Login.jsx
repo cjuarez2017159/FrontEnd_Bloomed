@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { Input } from "./Input";
 import { useLogin } from "../shared/hooks";
+import { useRegister } from '../shared/hooks';
+import DatePickerField from './DatePickerField';
+import 'react-datepicker/dist/react-datepicker.css';
 import './Login.css';
 
 export const Login = ({ switchAuthHandler }) => {
   const { login, isLoading } = useLogin();
   const [isLogin, setIsLogin] = useState(true);
+  const { register, isLoading: isRegisterLoading } = useRegister();
   const [formState, setFormState] = useState({
     username: {
       value: "",
@@ -17,13 +21,23 @@ export const Login = ({ switchAuthHandler }) => {
       isValid: false,
       showError: false,
     },
-    name: {
+    nombre: {
+      value: "",
+      isValid: false,
+      showError: false,
+    },
+    apellido: {
       value: "",
       isValid: false,
       showError: false,
     },
     email: {
       value: "",
+      isValid: false,
+      showError: false,
+    },
+    fechaNacimiento: {
+      value: null,
       isValid: false,
       showError: false,
     },
@@ -53,11 +67,14 @@ export const Login = ({ switchAuthHandler }) => {
       case "password":
         isValid = value.length >= 6;
         break;
-      case "name":
+      case "nombre":
         isValid = value.trim() !== "";
         break;
       case "email":
         isValid = value.includes("@");
+        break;
+      case "apellido":
+        isValid = value.trim() !== "";
         break;
       default:
         break;
@@ -74,16 +91,43 @@ export const Login = ({ switchAuthHandler }) => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    console.log('Username:', formState.username.value);
-    console.log('Password:', formState.password.value);
-    const response = await login(formState.username.value, formState.password.value);
-    console.log('Login response:', response);
+    login(formState.username.value, formState.password.value);
   };
 
-  const handleRegister = (event) => {
-    event.preventDefault();
-    // Handle registration logic here
+  const handleDateChange = (date) => {
+    setFormState((prevState) => ({
+      ...prevState,
+      fechaNacimiento: { value: date, isValid: date !== null, showError: date === null },
+    }));
   };
+
+
+  const handleRegister = async (event) => {
+    event.preventDefault();
+  
+    const day = formState.fechaNacimiento.value ? formState.fechaNacimiento.value.getDate().toString().padStart(2, '0') : '';
+    const month = formState.fechaNacimiento.value ? (formState.fechaNacimiento.value.getMonth() + 1).toString().padStart(2, '0') : '';
+    const year = formState.fechaNacimiento.value ? formState.fechaNacimiento.value.getFullYear() : '';
+    const formattedDate = `${day}/${month}/${year}`;
+  
+    console.log('Submitting registration form with the following data:');
+    console.log('Email:', formState.email.value);
+    console.log('Password:', formState.password.value);
+    console.log('Username:', formState.username.value);
+    console.log('Nombre:', formState.nombre.value);
+    console.log('Apellido:', formState.apellido.value);
+    console.log('Fecha de Nacimiento:', formattedDate);
+  
+    await register(
+      formState.email.value,
+      formState.password.value,
+      formState.username.value,
+      formState.nombre.value,
+      formState.apellido.value,
+      formattedDate  // Usa formattedDate aquí
+    );
+  };
+
 
   return (
     <div className="login-page">
@@ -123,15 +167,31 @@ export const Login = ({ switchAuthHandler }) => {
         ) : (
           <form className="register-form" onSubmit={handleRegister}>
             <Input
-              field="name"
-              label="Name"
-              value={formState.name.value}
+              field="nombre"
+              label="Nombre"
+              value={formState.nombre.value}
               onChangeHandler={handleInputValueChange}
               type="text"
               onBlurHandler={handleInputValidationOnBlur}
-              showErrorMessage={formState.name.showError}
+              showErrorMessage={formState.nombre.showError}
               validationMessage="Name cannot be empty."
             />
+            <Input
+              field="apellido"
+              label="Apellido"
+              value={formState.apellido.value}
+              onChangeHandler={handleInputValueChange}
+              type="text"
+              onBlurHandler={handleInputValidationOnBlur}
+              showErrorMessage={formState.apellido.showError}
+              validationMessage="Last Name cannot be empty."
+            />
+            <DatePickerField
+              selectedDate={formState.fechaNacimiento.value}
+              onDateChange={handleDateChange}
+              label="Date of Birth"
+            />
+            {formState.fechaNacimiento.showError && <p className="error-message">Date of Birth is required.</p>}
             <Input
               field="email"
               label="Email address"
@@ -143,6 +203,16 @@ export const Login = ({ switchAuthHandler }) => {
               validationMessage="Please enter a valid email address."
             />
             <Input
+              field="username"
+              label="Username"
+              value={formState.username.value}
+              onChangeHandler={handleInputValueChange}
+              type="text"
+              onBlurHandler={handleInputValidationOnBlur}
+              showErrorMessage={formState.username.showError}
+              validationMessage="Username cannot be empty."
+            />
+            <Input
               field="password"
               label="Password"
               value={formState.password.value}
@@ -152,8 +222,8 @@ export const Login = ({ switchAuthHandler }) => {
               showErrorMessage={formState.password.showError}
               validationMessage="Password should be at least 6 characters."
             />
-            <button type="submit" disabled={isLoading}>
-              Create
+            <button type="submit" disabled={isRegisterLoading}>
+              {isRegisterLoading ? 'Creating account...' : 'Create'}
             </button>
             <p className="message">
               Already registered?{' '}

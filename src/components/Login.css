@@ -58,3 +58,79 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Estilos generales del contenedor del DatePicker */
+.date-picker-field {
+  margin: 10px 0;
+}
+
+/* Estilos para el campo de entrada del DatePicker */
+.date-picker-field .form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+/* Estilos para el campo de entrada cuando está enfocado */
+.date-picker-field .form-control:focus {
+  border-color: #00ADB5;
+  outline: none;
+}
+
+/* Estilos del calendario del DatePicker */
+.react-datepicker__triangle {
+  display: none; /* Oculta el triángulo que apunta hacia el campo de entrada */
+}
+
+.react-datepicker {
+  font-family: "Roboto", sans-serif;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.react-datepicker__header {
+  background-color: #00ADB5;
+  color: #FFFFFF;
+  border: none;
+  padding: 10px;
+}
+
+.react-datepicker__current-month {
+  font-size: 16px; /* Tamaño del texto del mes actual */
+  font-weight: bold;
+}
+
+.react-datepicker__day-name {
+  font-size: 14px; /* Tamaño del texto de los nombres de los días */
+  font-weight: bold;
+}
+
+.react-datepicker__day {
+  font-size: 14px; /* Tamaño del texto de los días */
+  line-height: 1.5; /* Altura de línea para mejorar la legibilidad */
+}
+
+.react-datepicker__day--selected {
+  background-color: #00ADB5; /* Color de fondo para el día seleccionado */
+  color: #FFFFFF; /* Color del texto del día seleccionado */
+}
+
+.react-datepicker__day--keyboard-selected {
+  background-color: #007bff; /* Color de fondo para el día seleccionado con teclado */
+  color: #FFFFFF; /* Color del texto del día seleccionado con teclado */
+}
+
+.react-datepicker__day--disabled {
+  color: #CCCCCC; /* Color para los días deshabilitados */
+}
+
+.react-datepicker__month-container {
+  border-radius: 4px;
+}
+
+.react-datepicker__input-container {
+  display: block;
+}

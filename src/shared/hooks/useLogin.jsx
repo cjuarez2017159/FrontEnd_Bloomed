@@ -17,7 +17,6 @@ export const useLogin = () => {
 
         setIsLoading(false);
 
-        console.log('Login response:', response);
 
         if (response.error) {
             return toast.error(
@@ -27,14 +26,13 @@ export const useLogin = () => {
 
         const { userDetails } = response.data;
 
-        console.log('User details:', userDetails); 
 
         localStorage.setItem('user', JSON.stringify(userDetails));
 
         if (userDetails.role === 'admin') {
             navigate('/main');
         } else {
-            navigate('/register');
+            navigate('/xd');
         }
     };
 

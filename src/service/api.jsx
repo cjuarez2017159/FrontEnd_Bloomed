@@ -26,7 +26,6 @@ apiClient.interceptors.request.use(
 
 export const login = async (data) => {
     try {
-        console.log('Sending data:', data); // Verifica los datos que se envían
         const response = await apiClient.post('/auth/login', data);
         return response;
     } catch (e) {
@@ -34,6 +33,17 @@ export const login = async (data) => {
         return {
             error: true,
             e
+        };
+    }
+};
+
+export const register = async (data) => {
+    try {
+        return await apiClient.post('/user/register', data);
+    } catch (error) {
+        return {
+            error: true,
+            e: error
         };
     }
 };
