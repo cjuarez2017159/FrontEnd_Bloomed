@@ -41,7 +41,7 @@ export const Navbar = () => {
           </button>
         </li>
         <li>
-          <button className="nav-button" onClick={() => window.location.href = '/about'}>
+          <button className="nav-button" onClick={() => window.location.href = '/publications'}>
             Publicaciones
           </button>
         </li>
