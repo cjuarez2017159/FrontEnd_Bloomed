@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Input } from "./Input";
 import { useLogin } from "../shared/hooks";
+import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
 export const Login = ({ switchAuthHandler }) => {
   const { login, isLoading } = useLogin();
+  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
   const [formState, setFormState] = useState({
     username: {
@@ -74,15 +76,19 @@ export const Login = ({ switchAuthHandler }) => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    console.log('Username:', formState.username.value);
-    console.log('Password:', formState.password.value);
     const response = await login(formState.username.value, formState.password.value);
-    console.log('Login response:', response);
+
+    if (response.success) {
+      const { username } = response.data;
+      
+      localStorage.setItem('user', username);
+      
+      navigate('/');
+    }
   };
 
   const handleRegister = (event) => {
     event.preventDefault();
-    // Handle registration logic here
   };
 
   return (
