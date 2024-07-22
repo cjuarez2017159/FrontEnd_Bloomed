@@ -1,18 +1,17 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-    baseURL: 'http://localhost:3000/bloomed/v1',
+    baseURL: 'http://localhost:3000/bloomed/v1', // URL base de tu API
     timeout: 5000
-})
+});
 
 apiClient.interceptors.request.use(
     (config) => {
         const userDetails = localStorage.getItem('user');
-
         if (userDetails) {
             try {
                 const token = JSON.parse(userDetails).token;
-                config.headers.Authorization = `Bearer${token}`;
+                config.headers.Authorization = `Bearer ${token}`;
             } catch (error) {
                 console.error('Error parsing JSON from localStorage:', error);
             }
@@ -53,6 +52,22 @@ export const getVideo =  async () => {
     try {
         return await apiClient.get('/videos')
     } catch (e) {
-        
+        console.error('Error fetching video:', e);
+        return {
+            error: true,
+            e
+        };
     }
 }
+export const getpublicaciones = async () => {
+    try {
+        const response = await apiClient.get('/publications/publications');
+        return response.data;
+    } catch (e) {
+        console.error('Error fetching publicaciones:', e);
+        return {
+            error: true,
+            e
+        };
+    }
+};
