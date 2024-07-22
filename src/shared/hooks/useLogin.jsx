@@ -30,9 +30,9 @@ export const useLogin = () => {
         localStorage.setItem('user', JSON.stringify(userDetails));
 
         if (userDetails.role === 'admin') {
-            navigate('/main');
-        } else {
-            navigate('/xd');
+            navigate('/');
+        } if (userDetails.role === 'user'){
+            navigate('/');
         }
     };
 

@@ -1,0 +1,48 @@
+.navbar {
+    border-bottom: 4px solid #393E46; 
+    background-color: #393E46; 
+    font-weight: bold;
+    width: 100%;
+    color: white;
+    position: fixed; 
+    top: 0;
+    text-align: center;
+    padding: 10px 0;
+    z-index: 1000; 
+    display: flex; 
+    justify-content: center; 
+}
+
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    width: 100%;
+    justify-content: space-between; 
+}
+
+.navbar li {
+    margin: 0 15px;
+}
+
+.nav-button {
+    color: #00ADB5;
+    background: transparent;
+    border: 2px solid transparent; 
+    padding: 10px 15px;
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: background-color 0.3s, border-color 0.3s; 
+    font-size: 18px; 
+}
+
+.nav-button:hover {
+    background-color: #EEEEEE;
+    border-color: #EEEEEE; 
+}
+
+
+.navbar .login-register {
+    margin-left: auto; 
+}
