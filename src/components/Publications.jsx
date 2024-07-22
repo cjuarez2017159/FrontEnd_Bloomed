@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Navbar } from './Navbar.jsx';
-import usePublicacion from '../shared/hooks/usePublicacion.jsx'; 
+import { usePublicacion } from '../shared/hooks/usePublicacion.jsx';
 import './Publications.css';
 
 const Publication = ({ title, content, author, descripcion, date, edad }) => {
-  const formattedDate = new Date(date).toLocaleDateString(); // Formatea la fecha a una cadena legible
-  
+  const formattedDate = new Date(date).toLocaleDateString();
+
   return (
     <div className="publication">
       <h2>{title}</h2>
@@ -21,16 +21,20 @@ const Publication = ({ title, content, author, descripcion, date, edad }) => {
 };
 
 export const Publications = () => {
-  const { publicaciones, loading, error } = usePublicacion();
+  const { getPublicaciones, publicaciones, isFetching, error } = usePublicacion();
 
-  if (loading) return <div>Cargando...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  useEffect(() => {
+    getPublicaciones();
+  }, [getPublicaciones]);
+
+  if (isFetching) return <div>Cargando...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="publications-container">
       <Navbar />
       <div className="publications-content">
-        {publicaciones.length > 0 ? (
+        {publicaciones && publicaciones.length > 0 ? (
           publicaciones.map((publication) => (
             <Publication
               key={publication._id}

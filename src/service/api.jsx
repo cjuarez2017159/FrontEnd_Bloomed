@@ -61,7 +61,7 @@ export const getVideo =  async () => {
 }
 export const getpublicaciones = async () => {
     try {
-        const response = await apiClient.get('/publications/publications');
+        const response = await apiClient.get('/publications'); // URL corregida
         return response.data;
     } catch (e) {
         console.error('Error fetching publicaciones:', e);

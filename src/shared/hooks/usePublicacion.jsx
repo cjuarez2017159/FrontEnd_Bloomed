@@ -1,33 +1,44 @@
-import { useState, useEffect } from 'react';
-import { getpublicaciones } from '../../service/api.jsx';
+import { useState, useCallback  } from 'react';
+import toast from "react-hot-toast";
 
-const usePublicacion = () => {
+import { getpublicaciones as getPublicacionesRequest} from '../../service/api.jsx';
+
+export const usePublicacion = () => {
     const [publicaciones, setPublicaciones] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [isFetching, setIsFetching] = useState(false);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchPublicaciones = async () => {
-            try {
-                const result = await getpublicaciones();
-                
-                // Verifica si result tiene la estructura esperada
-                if (result && result.publications) {
-                    setPublicaciones(result.publications);
-                } else {
-                    setError('Datos no válidos recibidos.');
+    const getPublicaciones = useCallback(async () => {
+        setIsFetching(true);
+        try {
+            const result = await getPublicacionesRequest({
+                headers: {
+                    'Cache-Control': 'no-cache',
+                    'Pragma': 'no-cache'
                 }
-            } catch (err) {
-                setError(err.message || 'Error desconocido');
-            } finally {
-                setLoading(false);
-            }
-        };
+            });
 
-        fetchPublicaciones();
+            if (result.error) {
+                setError(result.e?.response?.data || 'Error occurred when fetching publications');
+                toast.error(result.e?.response?.data || 'Error occurred when fetching publications');
+            } else if (result.data && result.data.publications) {
+                setPublicaciones(result.data.publications);
+            } else {
+                setError('Invalid data received.');
+                toast.error('Invalid data received.');
+            }
+        } catch (err) {
+            setError(err.message || 'Unknown error');
+            toast.error(err.message || 'Unknown error');
+        } finally {
+            setIsFetching(false);
+        }
     }, []);
 
-    return { publicaciones, loading, error };
+    return {
+        getPublicaciones,
+        publicaciones,
+        isFetching,
+        error
+    };
 };
-
-export default usePublicacion;
